@@ -19,10 +19,12 @@ class DayPicker extends Component {
         return (
             <View style={styles.container}>
                 <Calendar
+                    customStyle={customStyles}
                     monthsCount={24}
                     startFormMonday={true}
                     selectFrom={from}
                     selectTo={to}
+                    range={false}
                     onSelectionChange={(current, previous) => {
                         console.log(current, previous);
                     }}
@@ -41,5 +43,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5F5F5'
     }
 });
+
+const customStyles = {
+    month: StyleSheet.create({
+        width: 500
+    })
+};
 
 AppRegistry.registerComponent('DayPicker', () => DayPicker);

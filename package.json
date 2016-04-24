@@ -1,30 +1,30 @@
 {
-    "name": "react-native-day-picker",
-    "version": "0.0.5",
-    "description": "react-native-day-picker is a simple calendar which allows you to select date range. Suites for android and ios",
-    "main": "index.js",
-    "scripts": {
-        "start": "react-native start"
-    },
-    "author": "Vladimir Ivanchenko",
-    "license": "ISC",
-    "keywords": [
-        "calendar",
-        "picker",
-        "day-picker",
-        "date",
-        "range",
-        "native",
-        "react",
-        "react-component",
-        "react-native"
-    ],
-    "devDependencies": {
-        "react": ">0.14.0",
-        "react-native": ">0.15.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ivanchenko/react-native-day-picker.git"
-    }
+  "name": "react-native-day-picker",
+  "version": "0.0.5",
+  "description": "react-native-day-picker is a simple calendar which allows you to select date range. Suites for android and ios",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-native start"
+  },
+  "author": "Vladimir Ivanchenko",
+  "license": "ISC",
+  "keywords": [
+    "calendar",
+    "picker",
+    "day-picker",
+    "date",
+    "range",
+    "native",
+    "react",
+    "react-component",
+    "react-native"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivanchenko/react-native-day-picker.git"
+  },
+  "dependencies": {
+    "react": "^0.14.7",
+    "react-native": "^0.22.0"
+  }
 }

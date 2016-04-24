@@ -1,11 +1,11 @@
 'use strict';
 
-import React from 'react-native';
-const {
+import React, {
     Component,
     ListView,
     StyleSheet,
-} = React;
+    PropTypes
+} from 'react-native';
 
 import Month from './Month';
 
@@ -16,6 +16,7 @@ export default class Calendar extends Component {
         monthsCount: 24,
         onSelectionChange: () => {
         },
+        range: true,
 
         monthsLocale: ['January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'],
@@ -23,16 +24,18 @@ export default class Calendar extends Component {
     };
 
     static propTypes = {
-        selectFrom: React.PropTypes.instanceOf(Date),
-        selectTo: React.PropTypes.instanceOf(Date),
+        selectFrom: PropTypes.instanceOf(Date),
+        selectTo: PropTypes.instanceOf(Date),
 
-        monthsCount: React.PropTypes.number,
+        range: PropTypes.bool,
 
-        monthsLocale: React.PropTypes.arrayOf(React.PropTypes.string),
-        weekDaysLocale: React.PropTypes.arrayOf(React.PropTypes.string),
-        startFromMonday: React.PropTypes.bool,
+        monthsCount: PropTypes.number,
 
-        onSelectionChange: React.PropTypes.func
+        monthsLocale: PropTypes.arrayOf(PropTypes.string),
+        weekDaysLocale: PropTypes.arrayOf(PropTypes.string),
+        startFromMonday: PropTypes.bool,
+
+        onSelectionChange: PropTypes.func
     };
 
     constructor(props) {
@@ -45,6 +48,8 @@ export default class Calendar extends Component {
 
         this.selectFrom = selectFrom;
         this.selectTo = selectTo;
+
+        this.isRange = this.props.range;
         this.months = this.generateMonths(monthsCount);
 
         var dataSource = new ListView.DataSource({rowHasChanged: this.rowHasChanged});
@@ -117,17 +122,22 @@ export default class Calendar extends Component {
     }
 
     changeSelection(value) {
-        var {selectFrom, selectTo, months} = this;
+        let {selectFrom, selectTo, months} = this;
 
-        if (!selectFrom) {
-            selectFrom = value;
-        } else if (!selectTo) {
-            if (value > selectFrom) {
-                selectTo = value;
-            } else {
+        if (this.isRange) {
+            if (!selectFrom) {
                 selectFrom = value;
+            } else if (!selectTo) {
+                if (value > selectFrom) {
+                    selectTo = value;
+                } else {
+                    selectFrom = value;
+                }
+            } else if (selectFrom && selectTo) {
+                selectFrom = value;
+                selectTo = null;
             }
-        } else if (selectFrom && selectTo) {
+        } else {
             selectFrom = value;
             selectTo = null;
         }
@@ -160,16 +170,19 @@ export default class Calendar extends Component {
                 return 'selected';
             }
         }
+
         if (selectTo) {
             if (selectTo.toDateString() === date.toDateString()) {
                 return 'selected';
             }
         }
+
         if (selectFrom && selectTo) {
             if (selectFrom < date && date < selectTo) {
                 return 'inRange';
             }
         }
+
         return 'common';
     }
 
